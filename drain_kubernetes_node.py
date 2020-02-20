@@ -21,7 +21,7 @@ pretty = True # str | If 'true', then the output is pretty printed. (optional)
 dry_run = 'All' # str | When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed (optional)
 field_manager = 'application/strategic-merge-patch+json' # str | fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch). (optional)
 force = False # bool | Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests. (optional)
-# schelude node
+# unschelude node
 try:
     api_response = api_instance.patch_node(name, body, pretty=pretty, field_manager=field_manager, dry_run=dry_run)
     pprint(api_response)
@@ -39,7 +39,7 @@ for i in ret.items:
     body = kubernetes.client.V1beta1Eviction(metadata=kubernetes.client.V1ObjectMeta(name=pod_name, namespace=node_namespaces))
     api_response = v1.create_namespaced_pod_eviction(name=pod_name, namespace=node_namespaces, body=body, pretty=pretty,dry_run=dry_run)
     pprint(api_response)
-# unschelude node
+# schelude node
 body = {"spec":{"unschedulable":False}}
 try:
     api_response = api_instance.patch_node(name, body, pretty=pretty, field_manager=field_manager, dry_run=dry_run)
