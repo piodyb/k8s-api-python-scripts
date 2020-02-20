@@ -2,11 +2,8 @@ from __future__ import print_function
 from kubernetes import client, config
 import kubernetes.client
 from kubernetes.client.rest import ApiException
-import sys
-import pprint
-import time
 from pprint import pprint
-import os
+
 
 # Configure API key authorization: BearerToken
 configuration = config.load_kube_config()
@@ -28,7 +25,7 @@ try:
 except ApiException as e:
     print("Exception when calling CoreV1Api->patch_node: %s\n" % e)
 
-#evict node's pods
+#evict nodes pods
 v1 = client.CoreV1Api(configuration)
 field_selector = 'spec.nodeName='+name
 ret = v1.list_pod_for_all_namespaces(watch=False, field_selector=field_selector)
